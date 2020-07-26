@@ -21,12 +21,12 @@ describe('calculate route', () => {
     const res = await request(server)
       .post('/api/v1/calculate')
       .send({
-        server: {
+        serverType: {
           CPU: 2,
           RAM: 32,
           HDD: 100,
         },
-        VMs: [
+        virtualMachines: [
           {
             CPU: 1,
             RAM: 16,

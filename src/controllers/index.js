@@ -1,29 +1,34 @@
 const calculateVM = (req, res) => {
   try {
-    if (!req.body || !req.body.server || !req.body.VMs) {
+    if (
+      !req.body ||
+      !req.body.serverType ||
+      !req.body.virtualMachines ||
+      !req.body.virtualMachines.length
+    ) {
       return res.status(400).json({
         message: 'Provide the right parameters',
       });
     }
-    const { server, VMs } = req.body;
-    const len = VMs.length;
+    const { serverType, virtualMachines } = req.body;
+    const len = virtualMachines.length;
     const total = [];
     for (let i = 0; i < len; i++) {
       if (
-        VMs[i]['CPU'] > server['CPU'] &&
-        VMs[i]['RAM'] > server['RAM'] &&
-        VMs[i]['HDD'] > server['HDD']
+        virtualMachines[i]['CPU'] > serverType['CPU'] &&
+        virtualMachines[i]['RAM'] > serverType['RAM'] &&
+        virtualMachines[i]['HDD'] > serverType['HDD']
       ) {
         continue;
       } else if (
-        VMs[i]['CPU'] <= server['CPU'] &&
-        VMs[i]['RAM'] <= server['RAM'] &&
-        VMs[i]['HDD'] <= server['HDD']
+        virtualMachines[i]['CPU'] <= serverType['CPU'] &&
+        virtualMachines[i]['RAM'] <= serverType['RAM'] &&
+        virtualMachines[i]['HDD'] <= serverType['HDD']
       ) {
-        total.push(VMs[i]);
-        server['CPU'] -= VMs[i]['CPU'];
-        server['RAM'] -= VMs[i]['RAM'];
-        server['HDD'] -= VMs[i]['HDD'];
+        total.push(virtualMachines[i]);
+        serverType['CPU'] -= virtualMachines[i]['CPU'];
+        serverType['RAM'] -= virtualMachines[i]['RAM'];
+        serverType['HDD'] -= virtualMachines[i]['HDD'];
       }
     }
 
