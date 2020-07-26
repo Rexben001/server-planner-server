@@ -8,25 +8,22 @@ const calculateVM = (req, res) => {
     const { server, VMs } = req.body;
     const len = VMs.length;
     const total = [];
-    let remainingServer = server;
     for (let i = 0; i < len; i++) {
       if (
-        VMs[i]['CPU'] > remainingServer['CPU'] &&
-        VMs[i]['RAM'] > remainingServer['RAM'] &&
-        VMs[i]['HDD'] > remainingServer['HDD']
+        VMs[i]['CPU'] > server['CPU'] &&
+        VMs[i]['RAM'] > server['RAM'] &&
+        VMs[i]['HDD'] > server['HDD']
       ) {
         continue;
       } else if (
-        VMs[i]['CPU'] <= remainingServer['CPU'] &&
-        VMs[i]['RAM'] <= remainingServer['RAM'] &&
-        VMs[i]['HDD'] <= remainingServer['HDD']
+        VMs[i]['CPU'] <= server['CPU'] &&
+        VMs[i]['RAM'] <= server['RAM'] &&
+        VMs[i]['HDD'] <= server['HDD']
       ) {
         total.push(VMs[i]);
-        remainingServer = {
-          CPU: remainingServer['CPU'] - VMs[i]['CPU'],
-          RAM: remainingServer['RAM'] - VMs[i]['RAM'],
-          HDD: remainingServer['HDD'] - VMs[i]['HDD'],
-        };
+        server['CPU'] -= VMs[i]['CPU'];
+        server['RAM'] -= VMs[i]['RAM'];
+        server['HDD'] -= VMs[i]['HDD'];
       }
     }
 
