@@ -15,11 +15,11 @@ const calculateVM = (req, res) => {
     const total = [];
     for (let i = 0; i < len; i++) {
       if (
-        virtualMachines[i]['CPU'] > serverType['CPU'] &&
-        virtualMachines[i]['RAM'] > serverType['RAM'] &&
+        virtualMachines[i]['CPU'] > serverType['CPU'] ||
+        virtualMachines[i]['RAM'] > serverType['RAM'] ||
         virtualMachines[i]['HDD'] > serverType['HDD']
       ) {
-        continue;
+        break;
       } else if (
         virtualMachines[i]['CPU'] <= serverType['CPU'] &&
         virtualMachines[i]['RAM'] <= serverType['RAM'] &&
