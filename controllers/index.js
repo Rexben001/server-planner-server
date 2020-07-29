@@ -14,12 +14,13 @@ const calculateVM = (req, res) => {
     const len = virtualMachines.length;
     const total = [];
     for (let i = 0; i < len; i++) {
+      // in case the virtualMachines array is not sorted
       if (
         virtualMachines[i]['CPU'] > serverType['CPU'] ||
         virtualMachines[i]['RAM'] > serverType['RAM'] ||
         virtualMachines[i]['HDD'] > serverType['HDD']
       ) {
-        break;
+        continue;
       } else if (
         virtualMachines[i]['CPU'] <= serverType['CPU'] &&
         virtualMachines[i]['RAM'] <= serverType['RAM'] &&
